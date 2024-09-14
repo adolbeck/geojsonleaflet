@@ -32,14 +32,20 @@ crossorigin=""></script>
     <div id="map"></div>
 
     <script>
-        var map = L.map('map').setView([51.505, -0.09], 13);
+        var map = L.map('map').setView([34.0259, -118.7798], 12);
 
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
 
+        var marker = L.marker([34.0369, -118.6892]).addTo(map);
 
+        var popup = L.popup()
+    .setLatLng([34.0469, -118.7006])
+    .setContent("Let's go surfing!")
+    .openOn(map);
+    
 
     </script>
 
