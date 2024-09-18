@@ -1,43 +1,38 @@
 <!DOCTYPE html>
-
-<html lang="en">
-
+<html>
 <head>
-
- <meta charset="UTF-8">
-
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
- <title>Hello Leaflet</title>
-
- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
- integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
- crossorigin=""/>
-
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-crossorigin=""></script>
-
-<style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hello Leaflet</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+          integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+          crossorigin=""></script>
+  <style>
     #map {
-        height: 100vh;
+      height: 100vh;
     }
-</style>
-
-
+  </style>
 </head>
-
 <body>
+  <div id="map"></div>
+  <script>
+    // Initialize the map
+    var map = L.map('map').setView([20, 0], 2);
 
-    <div id="map"></div>
+    // Add a tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
 
-    <script>
-        var map = L.map('map').setView([34.0259, -118.7798], 12);
-
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
+    // Fetch and display GeoJSON data
+    fetch('map.geojson')
+      .then(response => response.json())
+      .then(data => {
+        L.geoJSON(data).addTo(map);
+      });
 
         var marker = L.marker([34.0369, -118.6892]).addTo(map);
 
@@ -45,10 +40,6 @@ crossorigin=""></script>
     .setLatLng([34.0469, -118.7006])
     .setContent("Let's go surfing!")
     .openOn(map);
-    
-
-    </script>
-
+  </script>
 </body>
-
 </html>
