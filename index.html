@@ -19,8 +19,8 @@
 <body>
   <div id="map"></div>
   <script>
-       // Initialize the map with a global view
-       var map = L.map('map').setView([0, 0], 2);
+    // Initialize the map with a global view
+    var map = L.map('map').setView([0, 0], 2);
 
     // Add a tile layer
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -31,15 +31,22 @@
     fetch('map.geojson')
       .then(response => response.json())
       .then(data => {
-        L.geoJSON(data).addTo(map);
+        L.geoJSON(data, {
+          onEachFeature: function (feature, layer) {
+            if (feature.properties && feature.properties.city) {
+              var popupContent = `<strong>${feature.properties.city}</strong><br>
+                                  Pop 1985: ${feature.properties.Pop_1985}<br>
+                                  Pop 1990: ${feature.properties.Pop_1990}<br>
+                                  Pop 1995: ${feature.properties.Pop_1995}<br>
+                                  Pop 2000: ${feature.properties.Pop_2000}<br>
+                                  Pop 2005: ${feature.properties.Pop_2005}<br>
+                                  Pop 2010: ${feature.properties.Pop_2010}<br>
+                                  Pop 2015: ${feature.properties.Pop_2015}`;
+              layer.bindPopup(popupContent);
+            }
+          }
+        }).addTo(map);
       });
-
-        var marker = L.marker([34.0369, -118.6892]).addTo(map);
-
-        var popup = L.popup()
-    .setLatLng([34.0469, -118.7006])
-    .setContent("Let's go surfing!")
-    .openOn(map);
   </script>
 </body>
 </html>
