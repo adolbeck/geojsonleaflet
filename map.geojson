@@ -157,7 +157,7 @@
         {
             "type": "Feature",
             "properties": {
-                "city": "New York",
+                "city": "New York City",
                 "Pop_1985": 15.83,
                 "Pop_1990": 16.09,
                 "Pop_1995": 16.94,
